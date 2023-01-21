@@ -10,7 +10,7 @@ def qa_analysis(filename):
     with gzip.open(filename, 'r') as fastq:
         strands = fastq.readlines()[1::4]
     strands = [strand.decode('utf8').rstrip() for strand in strands]
-    lengths = [*map(len, strands)]
+    lengths = [len(strand) for strand in strands]
     gc_counts = [((strand.count('G') + strand.count('C')) / length * 100) for strand, length in zip(strands, lengths)]
     n_perc = [(strand.count('N') / length * 100) for strand, length in zip(strands, lengths)]
     repeats = len(strands) - len(set(strands))
